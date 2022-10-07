@@ -116,19 +116,21 @@ class CandidateController extends Controller
             'visi'                => 'required',
             'misi'                => 'required',
             'foto'                => 'required',
-
         ]);
 
 
-            $mobil = Candidate::find($id);
-            $mobil->plat_mobil  = $request->plat_mobil;
-            $mobil->nama_mobil  = $request->nama_mobil;
-            $mobil->tahun       = $request->tahun;
-            $mobil->harga       = $request->harga;
-            $mobil->warna       = $request->warna;
-            $mobil->save();
+            $candidate = Candidate::find($id);
+            $candidate->nm_candidate    = $request->nm_candidate;
+            $candidate->id_kategori     = $request->id_kategori;
+            $candidate->kelas           = $request->kelas;
+            $candidate->ttl             = $request->ttl;
+            $candidate->jenkel          = $request->jenkel;
+            $candidate->visi            = $request->visi;
+            $candidate->misi            = $request->misi;
+            $candidate->foto            = $request->foto;
+            $candidate->save();
 
-            return redirect('/mobil');
+            return redirect('/candidate');
     }
 
     /**
@@ -139,6 +141,9 @@ class CandidateController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $candidate = Candidate::find($id);
+        $candidate->delete();
+
+        return redirect('/candidate')->with('success', 'Berhasil Menghapus');
     }
 }
