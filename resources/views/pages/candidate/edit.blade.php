@@ -8,6 +8,7 @@
 
 <form action="/candidate/update/{{ $candidate->id_candidate }}" method="POST" enctype="multipart/form-data">
     {{ csrf_field() }}
+    @method('put')
     <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Nama Candidate</label>
         <input name="nm_candidate" type="text"  class="form-control" value="{{ $candidate->nm_candidate }}" id="exampleFormControlInput1">

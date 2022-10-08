@@ -28,7 +28,7 @@ Route::get('/candidate', 'CandidateController@index')->name('candidate');
 Route::get('/candidate/create', 'CandidateController@create');
 Route::post('/candidate/store', 'CandidateController@store');
 Route::get('/candidate/edit/{id}', 'CandidateController@edit');
-Route::post('/candidate/update/{id}', 'CandidateController@update');
+Route::put('/candidate/update/{id}', 'CandidateController@update');
 Route::get('/candidate/hapus/{id}', 'CandidateController@destroy');
 Route::get('/candidate/detail/{id}', 'CandidateController@show');
 

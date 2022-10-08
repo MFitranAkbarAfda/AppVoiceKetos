@@ -107,17 +107,16 @@ class CandidateController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request,[
-            'nm_candidate'        => 'required',
-            'id_kategori'         => 'required',
-            'kelas'               => 'required',
-            'ttl'                 => 'required',
-            'jenkel'              => 'required',
-            'visi'                => 'required',
-            'misi'                => 'required',
-            'foto'                => 'required',
-        ]);
-
+        // $this->validate($request,[
+        //     'nm_candidate'        => 'required',
+        //     'id_kategori'         => 'required',
+        //     'kelas'               => 'required',
+        //     'ttl'                 => 'required',
+        //     'jenkel'              => 'required',
+        //     'visi'                => 'required',
+        //     'misi'                => 'required',
+        //     'foto'                => 'required',
+        // ]);
 
             $candidate = Candidate::find($id);
             $candidate->nm_candidate    = $request->nm_candidate;
@@ -127,7 +126,16 @@ class CandidateController extends Controller
             $candidate->jenkel          = $request->jenkel;
             $candidate->visi            = $request->visi;
             $candidate->misi            = $request->misi;
-            $candidate->foto            = $request->foto;
+
+            if($request->hasFile('foto'))
+            {
+                $file = $request->file('foto');
+                $extension = $file->getClientOriginalExtension();
+                $fileName = time() . '.' . $extension;
+                $file->move('assets/image/foto_candidate', $fileName);
+                $candidate->foto = $fileName;
+            }
+
             $candidate->save();
 
             return redirect('/candidate');
