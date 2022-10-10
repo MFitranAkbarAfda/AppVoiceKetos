@@ -26,6 +26,7 @@
     <div class="mb-3">
     <label for="exampleFormControlInput1" class="form-label">Kelas</label>
         <select name="kelas" class="form-control" id="exampleFormControlInput1">
+            
             @if($candidate->kelas == "10")
             <option value="10" selected>10</option>
             <option value="11">11</option>
@@ -87,6 +88,7 @@
     <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Foto</label>
         <input type="file" name="foto" value="{{ $candidate->foto }}" class="form-control">
+        <input type="hidden" name="hidden_image" value="{{ $candidate->foto }}">
     </div>
     
 

@@ -135,7 +135,8 @@
                                 <select name="role" id="role" class="form-control @error('role') is-invalid @enderror" required autocomplete="role" autofocus>
                                     <option selected>-- Pilih --</option>
                                     <option value="admin">Admin</option>
-                                    <option value="user">User</option>
+                                    <option value="siswa">Siswa</option>
+                                    <option value="guru">Guru</option>
                                 </select>
                                 @error('nama')
                                     <span class="invalid-feedback" role="alert">

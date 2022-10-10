@@ -82,7 +82,8 @@ class CandidateController extends Controller
      */
     public function show($id)
     {
-        //
+        $candidate = Candidate::find($id);
+        return view('pages.candidate.detail', compact('candidate'));
     }
 
     /**
@@ -107,37 +108,50 @@ class CandidateController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $this->validate($request,[
-        //     'nm_candidate'        => 'required',
-        //     'id_kategori'         => 'required',
-        //     'kelas'               => 'required',
-        //     'ttl'                 => 'required',
-        //     'jenkel'              => 'required',
-        //     'visi'                => 'required',
-        //     'misi'                => 'required',
-        //     'foto'                => 'required',
-        // ]);
+            $foto_name = $request->hidden_image;
+            $foto = $request->file('foto');
 
-            $candidate = Candidate::find($id);
-            $candidate->nm_candidate    = $request->nm_candidate;
-            $candidate->id_kategori     = $request->id_kategori;
-            $candidate->kelas           = $request->kelas;
-            $candidate->ttl             = $request->ttl;
-            $candidate->jenkel          = $request->jenkel;
-            $candidate->visi            = $request->visi;
-            $candidate->misi            = $request->misi;
-
-            if($request->hasFile('foto'))
+            if($foto != '')
             {
-                $file = $request->file('foto');
-                $extension = $file->getClientOriginalExtension();
-                $fileName = time() . '.' . $extension;
-                $file->move('assets/image/foto_candidate', $fileName);
-                $candidate->foto = $fileName;
+                $request->validate([
+                    'nm_candidate'  =>  'required',
+                    'id_kategori'   =>  'required',
+                    'kelas'         =>  'required',
+                    'ttl'           =>  'required',
+                    'jenkel'        =>  'required',
+                    'visi'          =>  'required',
+                    'misi'          =>  'required',
+                    'foto'          =>  'required'
+                ]);
+
+                $foto_name = rand() . '.' . $foto->getClientOriginalExtension();
+                $foto->move(public_path('assets/image/foto_candidate'), $foto_name);
+
+            }else{
+                $request->validate([
+                    'nm_candidate'  =>  'required',
+                    'id_kategori'   =>  'required',
+                    'kelas'         =>  'required',
+                    'ttl'           =>  'required',
+                    'jenkel'        =>  'required',
+                    'visi'          =>  'required',
+                    'misi'          =>  'required'
+                ]);
             }
 
-            $candidate->save();
+                $candidate = Candidate::find($id);
+                $candidate->nm_candidate    = $request->nm_candidate;
+                $candidate->id_kategori     = $request->id_kategori;
+                $candidate->kelas           = $request->kelas;
+                $candidate->ttl             = $request->ttl;
+                $candidate->jenkel          = $request->jenkel;
+                $candidate->visi            = $request->visi;
+                $candidate->misi            = $request->misi;
+                $candidate->foto            = $foto_name;
+                $candidate->save();
+            
 
+            
             return redirect('/candidate');
     }
 

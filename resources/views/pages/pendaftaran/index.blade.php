@@ -24,7 +24,7 @@
   <tbody>
     <tr>
         @foreach($pendaftaran as $p)
-      <th scope="p">{{ $no }}</th>
+      <th scope="p">{{ $no++ }}</th>
       <td>{{ $p->no_induk }}</td>
       <td>{{ $p->nama }}</td>
       <td>{{ $p->no_tlp }}</td>
